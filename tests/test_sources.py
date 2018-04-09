@@ -7,7 +7,7 @@ class SourcesTest(unittest.TestCase):
     """ Test for the sources class """
     def SetUp(self):
         """ creating a cutom function """
-        self.new_source = Sources(1, "Mbugua", "Awsomenews", "fakeurl", "disaster")
+        self.new_source = Sources(1, "Mbugua", "Awsomenews", "fakeurl","fakeImage", "disaster")
 
     # def TearDown(self)
     def test_init(self):
@@ -17,5 +17,6 @@ class SourcesTest(unittest.TestCase):
         self.assertEqual(self.new_source.name,"Mbugua")
         self.assertEqual(self.new_source.description,"Awsomenews")
         self.assertEqual(self.new_source.url,"fakeurl")
+        self.assertEqual(self.new_source.url_to_image, "fakeImage")
         self.assertEqual(self.new_source.category,"disaster")
     

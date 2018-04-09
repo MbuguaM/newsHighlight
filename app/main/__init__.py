@@ -1,7 +1,5 @@
-from flask import Flask
-from flask-bootstrap import bootstrap
-from config import config_options
+from flask import Blueprint
 
+main = Blueprint("main", __name__)
 
-#app initialization 
-app=Flask(__name__)
+from . import views,errors
