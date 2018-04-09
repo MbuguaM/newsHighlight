@@ -1,9 +1,12 @@
 # handles the application routing
-from flask import render_template
-from app import app
+from flask import render_template, request, redirect, url_for
+from . import main
+from ..requests import get_sources, get_article
 
 #views
-@app.route(/)
+
+@main.route('/')
 def index():
     """ view function that returns the index page and its data """
-    return render_template('index.html')
+    sources = get_sources()
+    return render_template('index.html') 

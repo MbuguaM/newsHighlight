@@ -34,16 +34,22 @@ def get_sources():
     return source_results
     
 def process_results(source_list):
-    """ Function that map repose form the api into th model """
+    """ Function that changes argument a list of form the api into 
+        
+        Args:
+            source_list : alist of dictionaries 
+        returns:
+            source_results 
+    """
     source_results = []
 
     for source_item in source_list:
-        id = source_item.id
-        name = source_item.name
-        description = source_item.description 
-        url = source_item.description 
-        url_to_image = source_item.urlToImage
-        category = source_item.category 
+        id = source_item.get('id')
+        name = source_item.get('name')
+        description = source_item.get('description') 
+        url = source_item.get('url') 
+        url_to_image = source_item.get("urlToImage")
+        category = source_item.get("category") 
 
         if url_to_image:
 
@@ -52,4 +58,52 @@ def process_results(source_list):
 
     return source_results
      
+# getting article information 
+def get_article(category):
+
+    """ function that get article information from the api """
+
+    #getting the url
+    article_url= article_base_url.format(category,api_key)
+    
+    with urllib.request.urlopen(article_url) as url:
+        article_data = url.read()
+        article_response = json.load(article_data)
+  
+    article_results = None
+
+    if article_response['article']:       
+        article_list = article_response['article']
+        article_results = process_article(article_list)
+
+    return article_results
+
+def process_article(list_articles):
+    """ a function that take in a list of dictionaries an processes them into objects 
+      
+       Arg:
+         list_ariticle : a list of of dictionaries with informtion on the news
+       returns:
+          article_result : a list of objects 
+    """    
+    article_results = []
+
+    for list_article in list_articles :
+
+        source_name = list_article.get('source.name')
+        author = list_article.get('author')
+        title = list_article.get('title')
+        description = list_article.get('description')
+        url_to_image = list_article.get('urlToImage')
+        published_at = list_article.get('published_at')
+
+        if url_to_image:
+            article_object = Article(source_name, author, title, description, url_to_image, published_at)
+            article_results.append(article_object) 
+            
+    return article_results
+
+
+
+
         
