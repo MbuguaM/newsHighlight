@@ -84,7 +84,7 @@ def process_article(list_articles):
        Arg:
          list_ariticle : a list of of dictionaries with informtion on the news
        returns:
-          article_result : a list of objects 
+          article_result : a list of article objects 
     """    
     article_results = []
 
